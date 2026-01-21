@@ -82,21 +82,33 @@
     text-align: center;
     font-size: 30px;
   }
-  audio{
-    width: 200px;
-    height: 200px;
+  .music{
+    display: flex; 
+    justify-content: center;
+    align-items: center;
   }
+  button{
+    margin-top: 20px;
+    padding: 5px 8px;
+    color: white;
+    background-color: red;
+    border: none;
+    font-size: 20px;
+    border-radius: 5px;
+  }
+  
 </style>
 <body>
   <h1>Rock Paper Scissors</h1>
   <div class="choises">
-    <div class="choise" id="rock">
+      <div onclick="clicked.play()" class="choise" id="rock">
      <img src="rock.png" alt="" /> 
     </div>
-    <div class="choise" id="papper">
+    
+    <div onclick="clicked.play()" class="choise" id="papper">
      <img src="paper.png" alt="" /> 
     </div>
-    <div class="choise" id="scissor">
+    <div onclick="clicked.play()" class="choise" id="scissor">
       <img src="scissors.png" alt="" />
     </div>
   </div>
@@ -118,9 +130,33 @@
     <p class="msg2">Play Your Move</p>
   </div>
   
-  <audio src="background.mp3" controls autoplay loop ></audio>
+  <div class="music">
+    <button id="music" type="submit">Sound Off</button>
+  </div>
+  
   
   <script type="text/javascript" charset="utf-8">
+  
+  
+  const audio = new Audio("music.mp3");
+  audio.loop = true
+  const btn = document.getElementById("music");
+  
+  btn.addEventListener("click",()=>{
+    if(audio.paused){
+      audio.play()
+      btn.innerText = "Sound On"
+      btn.style.backgroundColor = "green"
+    }else{
+      audio.pause()
+      btn.innerText = "Sound Off"
+      btn.style.backgroundColor = "red"
+    }
+  })
+  
+  const clicked = new Audio();
+  clicked.src = "click.mp3"
+  clicked.loop = false
   
   let user = 0;
   let com = 0;
