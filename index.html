@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rock Paper Scissors</title>
+</head>
+<style type="text/css" media="all">
+  *{
+    padding: 0px;
+    margin: 0px;
+  }
+  h1{
+    background-color: black;
+    color: white;
+    display: flex;
+    position: relative;
+    height: 80px;
+    width: 100%;
+    font-weight: bolder;
+    font-size: 30px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .choise:hover{
+    cursor: pointer;
+    background-color: black;
+    border: 2px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .choise{
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+  }
+
+  img{
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  .choises{
+    height: 150px;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  .score-board{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+    font-weight: bolder;
+    font-size: 20px;
+    gap: 20px;
+  }
+  .msg{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    font-size: 20px;
+    margin-top: 20px;
+    
+  }
+  .msg2{
+    background-color: black;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    position: relative;
+  }
+  
+  #user,#com{
+    text-align: center;
+    font-size: 30px;
+  }
+  audio{
+    width: 200px;
+    height: 200px;
+  }
+</style>
+<body>
+  <h1>Rock Paper Scissors</h1>
+  <div class="choises">
+    <div class="choise" id="rock">
+     <img src="rock.png" alt="" /> 
+    </div>
+    <div class="choise" id="papper">
+     <img src="paper.png" alt="" /> 
+    </div>
+    <div class="choise" id="scissor">
+      <img src="scissors.png" alt="" />
+    </div>
+  </div>
+  <div class="score-board">
+    
+    <div class="score">
+      <p id="user">0</p>
+      <p>You</p>
+    </div>
+    
+    <div class="score">
+      <p id="com">0</p>
+      <p>Computer</p>
+    </div>
+    
+  </div>
+  
+  <div class="msg">
+    <p class="msg2">Play Your Move</p>
+  </div>
+  
+  <audio src="https://pixabay.com/sound-effects/musical-happy-relaxing-loop-275487/" controls autoplay loop ></audio>
+  
+  <script type="text/javascript" charset="utf-8">
+  
+  let user = 0;
+  let com = 0;
+  
+  let userscore = document.querySelector("#user")
+  let comscore = document.querySelector("#com")
+  
+  let msg = document.querySelector(".msg2")
+  
+  const draw = ()=>{
+    console.log("Game was Draw!")
+    msg.innerText = "Game Draw"
+    msg.style.backgroundColor = "black";
+    
+  }
+  
+  const choises = document.querySelectorAll(".choise")
+  
+  const getcomchoice = () =>{
+    const options = ["rock","papper","scissor"];
+    let ind = Math.floor(Math.random()*3);
+    return options[ind]
+  }
+  
+  const showuserwin = (uwin)=>{
+
+    if(uwin == true){
+      console.log("You Win")
+      //document.getElementsByTagName("p")[4].innerText = "You Win"
+        msg.innerText = "You Win"
+        msg.style.backgroundColor = "green";
+        user = user+1
+        console.log("user",user)
+        userscore.innerText = user;
+    }else{
+      console.log("You Lose")
+      msg.innerText = "You Lose"
+      msg.style.backgroundColor = "red";
+      com = com+1
+      console.log("computer",com)
+      comscore.innerText = com;
+    }
+  }
+  
+  const playgame = (uchoice) =>{
+    console.log("user",uchoice)
+    const comchoice = getcomchoice();
+    console.log("com",comchoice)
+    if(uchoice===comchoice){
+      draw();
+    }else{
+      let uwin = true;
+      if(uchoice === "rock"){
+        uwin = comchoice === "papper" ? false : true;
+      }else if(uchoice === "papper"){
+        uwin = comchoice === "scissor" ? false : true;
+      }else{
+        uwin = comchoice === "rock" ? false : true;
+      }
+      showuserwin(uwin)
+    }
+  };
+  
+  choises.forEach((choice)=>{
+    choice.addEventListener("click",()=>{
+      let uchoice = choice.getAttribute("id")
+      playgame(uchoice)
+    })
+  })
+  
+  </script>
+</body>
+
+</html>
